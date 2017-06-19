@@ -14,7 +14,7 @@ void highlight(int x, int y);
 int w = 1366, h = 685, d, offset = 2;
 void message(char*);
 void display();
-chessboard c1(skeleton_box, clearbox, highlight,display,message);
+chessboard c1(skeleton_box, clearbox, highlight, display, message);
 void myinit()
 {
 	glViewport(0, 0, w, h);
@@ -25,44 +25,35 @@ void myinit()
 	glEnable(GL_POINT_SMOOTH);
 }
 
-void mreshape(int wx, int hx)
+void mreshape(int wx, int hx) // fix size of the window
 {
 	if (wx == w && hx == h)
-		{board_layout();c1.redisplay();return;}
+	{
+		board_layout();c1.redisplay();return;
+	}
 	if (wx != w || hx != h)
-	glutReshapeWindow(w, h);
-	/*w = wx, h = hx;
-	myinit();
-	d = h;
-	if (w < d)
-		d = w;
-	d = d / 8;
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT);*/
-	//board_layout();
-	//c1.redisplay();
+		glutReshapeWindow(w, h);
 }
-void rect_box(int,int,int,int);
-void message_box()
+void rect_box(int, int, int, int);
+void message_box() //define message box space
 {
-glColor3f(0,0,0);	
-	glLineWidth(3);	
-rectangle(750,400,1300,650);
-glColor3f(1,1,1);
-rect_box(750,400,1300,650);
-	//glColor3f(0,0,0);
-	//rectangle(
+	glColor3f(0, 0, 0);
+	glLineWidth(3);
+	rectangle(750, 400, 1300, 650);
+	glColor3f(1, 1, 1);
+	rect_box(750, 400, 1300, 650);
 }
-void message(char *msg)
+void message(char *msg) //display message in message box after clearing it
 {
 	message_box();
-	glRasterPos2f(770,600);
-	glColor3f(1,1,1);
-	for(int i=0;i<strlen(msg);i++)
-		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,msg[i]);
+	glRasterPos2f(770, 600);
+	glColor3f(1, 1, 1);
+	for (int i = 0;i < strlen(msg);i++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, msg[i]);
 }
 
 void king(int x, int y, int color)
+//function to display King wrt to (x,y) position. (x,y) is center of the King
 {
 
 	if (color == 0)
@@ -83,6 +74,7 @@ void king(int x, int y, int color)
 	rectangle(x - d / 9.09, y - d / 3.448, x + d / 9.09, y - d / 2.564);
 }
 void knight(int x, int y, int color)
+//function to display Knight wrt to (x,y) position. (x,y) is center of the Knight
 {
 
 	if (color == 0)
@@ -113,6 +105,7 @@ void knight(int x, int y, int color)
 	rectangle(x - d / 9.09, y - d / 3.448, x + d / 9.09, y - d / 2.564);
 }
 void queen(int x, int y, int color)
+//function to display Queen wrt to (x,y) position. (x,y) is center of the Queen
 {
 
 	if (color == 0)
@@ -133,6 +126,7 @@ void queen(int x, int y, int color)
 	rectangle(x - d / 9.09, y - d / 3.448, x + d / 9.09, y - d / 2.564);
 }
 void bishop(int x, int y, int color)
+//function to display Bishop wrt to (x,y) position. (x,y) is center of the Bishop
 {
 
 	if (color == 0)
@@ -152,6 +146,7 @@ void bishop(int x, int y, int color)
 	rectangle(x - d / 9.09, y - d / 3.448, x + d / 9.09, y - d / 2.564);
 }
 void rook(int x, int y, int color)
+//function to display Rook wrt to (x,y) position. (x,y) is center of the Rook
 {
 
 	if (color == 0)
@@ -183,7 +178,7 @@ void pawn(int x, int y, int color)
 	rectangle(x - d / 9.09, y - d / 3.448, x + d / 9.09, y - d / 2.564);
 }
 
-void triangle(int a, int b, int c, int d, int e, int f)
+void triangle(int a, int b, int c, int d, int e, int f) //display unfilled triangle
 {
 	glLineWidth(1);
 	glBegin(GL_LINE_LOOP);
@@ -194,7 +189,7 @@ void triangle(int a, int b, int c, int d, int e, int f)
 
 
 }
-void rectangle(int a, int b, int c, int d)
+void rectangle(int a, int b, int c, int d) //display filled rectangle
 {
 	glBegin(GL_POLYGON);
 	glVertex2i(a, b);
@@ -202,9 +197,9 @@ void rectangle(int a, int b, int c, int d)
 	glVertex2i(c, d);
 	glVertex2i(a, d);
 	glEnd();
-	
+
 }
-void circle(int x, int y, int r)
+void circle(int x, int y, int r) //display filled circle of radius 'r'
 {
 
 	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
@@ -215,14 +210,14 @@ void circle(int x, int y, int r)
 
 }
 void clearbox(int, int);
-void board_layout()
+void board_layout()	//display chess board
 {
 	glLineWidth(2);
 	for (int i = 0;i < 8;i++)
 		for (int j = 0;j < 8;j++)
 			clearbox(i, j);
 }
-void rect_box(int a, int b, int c, int d)
+void rect_box(int a, int b, int c, int d)	//display unfilled rectangle
 {
 	glBegin(GL_LINE_LOOP);
 	glVertex2i(a, b);
@@ -232,13 +227,13 @@ void rect_box(int a, int b, int c, int d)
 	glEnd();
 
 }
-void skeleton_box(int x, int y)
+void skeleton_box(int x, int y)		//display unfilled rectangle of white color
 {
 	glColor3f(1, 1, 1);
 	glLineWidth(3);
 	rect_box(x*d + offset, y*d + offset, (x + 1)*d + offset, (y + 1)*d + offset);
 }
-void clearbox(int x, int y)
+void clearbox(int x, int y)			//clear (x,y) box in chess board
 {
 	if ((x + y) % 2 == 0)
 		glColor3ub(50, 205, 50);
@@ -253,18 +248,18 @@ void clearbox(int x, int y)
 	glEnd();
 	skeleton_box(x, y);
 }
-void highlight(int x, int y)
+void highlight(int x, int y)	//highlight box in chessboard
 {
 	glColor3ub(30, 144, 255);
 	glLineWidth(3);
 	rect_box(x*d + offset, y*d + offset, (x + 1)*d + offset, (y + 1)*d + offset);
 }
 
-void display()
+void display()	//flush contents to display
 {
 	glFlush();
 }
-void initboard()
+void initboard()	//initialise chess engine wrt UI elements 
 {
 	d = h;
 	if (w < d)
@@ -279,7 +274,7 @@ void initboard()
 	c1.setpawn(pawn);
 }
 int m = 0;
-void reset(int v)
+void reset(int v)		//enable/disable mouse control for piece selection
 {
 	m = 0;
 }
@@ -300,14 +295,14 @@ void mouse(int b, int s, int x, int y)
 				x = j;y = i;
 			}
 	c1.select(x, y);
-	glutTimerFunc(250, reset, 0);
+	glutTimerFunc(250, reset, 0);		//mouse is re-enabled after 250ms
 }
-void mainmenu(int id)
+void mainmenu(int id)	//menu to undo move on player request
 {
 	if (id == 1)
 		c1.undo_move();
 }
-void initmenu()
+void initmenu()		//initialise menu 
 {
 	glutCreateMenu(mainmenu);
 	glutAddMenuEntry("UNDO", 1);
